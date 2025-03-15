@@ -8,6 +8,7 @@ export default function Home() {
   const [shuffledWords, setShuffledWords] = useState([...wordsList[selectedDate]]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   // 打亂單詞順序的函數
   const shuffleWords = () => {
@@ -39,15 +40,32 @@ export default function Home() {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen relative">
+      {/* Sidebar toggle button for mobile */}
+      <button 
+        onClick={() => setSidebarOpen(!isSidebarOpen)}
+        className="lg:hidden fixed top-4 left-4 z-20 p-2 bg-gray-200 rounded-lg"
+      >
+        {isSidebarOpen ? '✕' : '☰'}
+      </button>
+
       {/* Sidebar */}
-      <div className="w-64 bg-gray-100 p-4 border-r">
+      <div className={`
+        fixed lg:static
+        w-64 bg-gray-100 p-4 border-r
+        min-h-screen overflow-y-auto
+        transition-transform duration-300 z-10
+        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+      `}>
         <h2 className="text-xl font-bold mb-4">單字列表</h2>
         <div className="space-y-2">
           {Object.keys(wordsList).map((date) => (
             <button
               key={date}
-              onClick={() => setSelectedDate(date)}
+              onClick={() => {
+                setSelectedDate(date);
+                setSidebarOpen(false);
+              }}
               className={`w-full text-left px-4 py-2 rounded ${
                 selectedDate === date
                   ? 'bg-blue-500 text-white'
@@ -60,8 +78,16 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-0 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
       {/* Main content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 lg:ml-0">
         <div className="max-w-md mx-auto">
           {/* Progress indicator */}
           <div className="text-right mb-4">
