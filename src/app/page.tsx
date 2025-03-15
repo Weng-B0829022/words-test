@@ -97,7 +97,7 @@ export default function Home() {
           </div>
 
           {/* Flashcard */}
-          <div className="bg-white rounded-lg shadow-lg p-8 mb-4 h-40 transition-transform duration-300 hover:-rotate-1 hover:scale-[1.02]">
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-4 h-48 transition-transform duration-300 hover:-rotate-1 hover:scale-[1.02]">
             <h2 className="text-3xl font-bold text-center mb-4">
               {shuffledWords[currentIndex].english}
             </h2>
@@ -107,9 +107,16 @@ export default function Home() {
             </p>
             
             {showTranslation && (
-              <p className="text-xl text-center text-gray-700">
-                {shuffledWords[currentIndex].chinese}
-              </p>
+              <div className="text-center">
+                <p className="text-xl text-gray-700 mb-2">
+                  {shuffledWords[currentIndex].chinese}
+                </p>
+                {shuffledWords[currentIndex].synonyms && (
+                  <p className="text-sm text-gray-500">
+                    同義字: {shuffledWords[currentIndex].synonyms.join(", ")}
+                  </p>
+                )}
+              </div>
             )}
           </div>
 
