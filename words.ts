@@ -1,3 +1,16 @@
+// First, define the interface for a word entry
+type WordEntry = {
+    english: string;
+    chinese: string;
+    partOfSpeech: string;
+    synonyms: string[];
+}
+
+// Define the type for the entire words list
+type WordsList = {
+    [date: string]: WordEntry[];
+}
+
 const wordsList = {
     "3/14": [
         { english: "counterfeit", chinese: "偽造", partOfSpeech: "verb/adjective", synonyms: ["forge", "fake"] },
@@ -102,7 +115,7 @@ const wordsList = {
         { english: "widening", chinese: "擴大的", partOfSpeech: "adjective", synonyms: ["expanding", "broadening"] },
         { english: "gradually", chinese: "逐漸地", partOfSpeech: "adverb", synonyms: ["slowly", "progressively"] },
         { english: "trustee", chinese: "受託人", partOfSpeech: "noun", synonyms: ["guardian", "custodian"] }
-    ],
-};
+    ]
+} as const;
 
 export default wordsList;
