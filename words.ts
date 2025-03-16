@@ -11,7 +11,7 @@ type WordsList = {
     [date: string]: WordEntry[];
 }
 
-const wordsList = {
+const wordsList: WordsList = {
     "3/14": [
         { english: "counterfeit", chinese: "偽造", partOfSpeech: "verb/adjective", synonyms: ["forge", "fake"] },
         { english: "enquire", chinese: "詢問", partOfSpeech: "verb", synonyms: ["inquire", "ask"] },
